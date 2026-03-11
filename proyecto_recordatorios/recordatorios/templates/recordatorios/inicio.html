@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRONOX | Κρόνος - Señor del Tiempo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Caesar+Dressing&family=GFS+Neohellenic:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'GFS Neohellenic', serif;
+            min-height: 100vh;
+            color: #f4e4c1;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Fondo del Olimpo con animación */
+        .olympus-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1570482597285-d2c0f9c223f7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            z-index: -2;
+        }
+
+        .olympus-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                180deg,
+                rgba(10, 20, 40, 0.3) 0%,
+                rgba(0, 30, 60, 0.6) 50%,
+                rgba(0, 20, 40, 0.9) 100%
+            );
+        }
+
+        /* Nubes animadas del Olimpo */
+        .clouds {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: url('https://raw.githubusercontent.com/danielstuart14/CSS_FOG_ANIMATION/master/img/fog1.png') repeat-x;
+            background-size: 50% 100%;
+            animation: drift 60s linear infinite;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        .clouds::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://raw.githubusercontent.com/danielstuart14/CSS_FOG_ANIMATION/master/img/fog2.png') repeat-x;
+            background-size: 50% 100%;
+            animation: drift 40s linear infinite reverse;
+            opacity: 0.6;
+        }
+
+        @keyframes drift {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Rayos de Zeus animados */
+        .lightning {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+            animation: lightning 8s infinite;
+        }
+
+        @keyframes lightning {
+            0%, 90%, 100% { opacity: 0; }
+            92% { opacity: 0.3; background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.8), transparent 70%); }
+            93% { opacity: 0; }
+            94% { opacity: 0.2; background: radial-gradient(circle at 30% 0%, rgba(255,255,255,0.6), transparent 60%); }
+            95% { opacity: 0; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header épico griego */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px;
+            background: rgba(0, 20, 40, 0.6);
+            border: 3px solid rgba(212, 175, 55, 0.5);
+            border-radius: 20px;
+            box-shadow: 
+                0 0 50px rgba(212, 175, 55, 0.3),
+                inset 0 0 100px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '❖ ❖ ❖';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(212, 175, 55, 0.6);
+            font-size: 20px;
+            letter-spacing: 20px;
+        }
+
+        .header::after {
+            content: '❖ ❖ ❖';
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(212, 175, 55, 0.6);
+            font-size: 20px;
+            letter-spacing: 20px;
+        }
+
+        .symbol-container {
+            margin-bottom: 20px;
+        }
+
+        .symbol {
+            font-size: 100px;
+            display: inline-block;
+            animation: rotate 20s linear infinite;
+            text-shadow: 
+                0 0 30px rgba(212, 175, 55, 0.8),
+                0 0 60px rgba(212, 175, 55, 0.5);
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.6));
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        h1 {
+            font-family: 'Caesar Dressing', cursive;
+            font-size: 80px;
+            color: #d4af37;
+            text-transform: uppercase;
+            letter-spacing: 15px;
+            text-shadow: 
+                0 0 20px rgba(212, 175, 55, 0.8),
+                0 0 40px rgba(212, 175, 55, 0.5),
+                4px 4px 8px rgba(0, 0, 0, 0.8);
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .greek-name {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 24px;
+            color: rgba(212, 175, 55, 0.8);
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+        }
+
+        .spartan-quote {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 18px;
+            color: #b8a88a;
+            font-style: italic;
+            letter-spacing: 3px;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 15px;
+            margin-top: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Botón épico */
+        .forge-btn-container {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .forge-btn {
+            display: inline-block;
+            padding: 25px 60px;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2e5c8a 50%, #1e3a5f 100%);
+            color: #d4af37;
+            text-decoration: none;
+            border: 3px solid #d4af37;
+            border-radius: 5px;
+            font-family: 'Caesar Dressing', cursive;
+            font-size: 24px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(212, 175, 55, 0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .forge-btn::before {
+            content: '⚔';
+            margin-right: 15px;
+            font-size: 28px;
+        }
+
+        .forge-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(212, 175, 55, 0.3) 50%,
+                transparent 70%
+            );
+            transform: rotate(45deg);
+            transition: all 0.6s;
+        }
+
+        .forge-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.6),
+                0 0 50px rgba(212, 175, 55, 0.5);
+            background: linear-gradient(135deg, #2e5c8a 0%, #3d7ab5 50%, #2e5c8a 100%);
+        }
+
+        .forge-btn:hover::after {
+            left: 100%;
+        }
+
+        /* Línea divisoria griega */
+        .greek-line {
+            display: flex;
+            align-items: center;
+            margin: 40px 0;
+            color: #d4af37;
+            font-size: 24px;
+        }
+
+        .greek-line::before,
+        .greek-line::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+        }
+
+        .greek-line span {
+            padding: 0 30px;
+            letter-spacing: 10px;
+        }
+
+        /* Grid de destinos */
+        .destinies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        /* Tablilla griega */
+        .tablet {
+            background: 
+                linear-gradient(135deg, rgba(139, 119, 101, 0.9) 0%, rgba(160, 140, 120, 0.9) 100%);
+            border: 4px solid #5c4033;
+            border-radius: 10px;
+            padding: 30px;
+            position: relative;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.6),
+                inset 0 0 100px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        .tablet::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px solid rgba(92, 64, 51, 0.5);
+            border-radius: 5px;
+            pointer-events: none;
+        }
+
+        .tablet::after {
+            content: '𐄁 𐄁 𐄁';
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #5c4033;
+            font-size: 20px;
+            letter-spacing: 10px;
+        }
+
+        .tablet:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 
+                0 30px 80px rgba(0, 0, 0, 0.7),
+                0 0 40px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Prioridades con símbolos griegos */
+        .tablet.alta {
+            border-color: #8b0000;
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.9) 0%, rgba(160, 20, 20, 0.9) 100%);
+        }
+
+        .tablet.alta::before {
+            border-color: rgba(139, 0, 0, 0.5);
+        }
+
+        .tablet.media {
+            border-color: #b8860b;
+            background: linear-gradient(135deg, rgba(184, 134, 11, 0.9) 0%, rgba(218, 165, 32, 0.9) 100%);
+        }
+
+        .tablet.baja {
+            border-color: #2e5c8a;
+            background: linear-gradient(135deg, rgba(46, 92, 138, 0.9) 0%, rgba(61, 122, 181, 0.9) 100%);
+        }
+
+        .tablet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(92, 64, 51, 0.5);
+        }
+
+        .tablet.alta .tablet-header { border-color: rgba(139, 0, 0, 0.5); }
+        .tablet.media .tablet-header { border-color: rgba(184, 134, 11, 0.5); }
+        .tablet.baja .tablet-header { border-color: rgba(46, 92, 138, 0.5); }
+
+        .destiny-title {
+            font-family: 'Caesar Dressing', cursive;
+            font-size: 28px;
+            color: #2c1810;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
+        }
+
+        .tablet.alta .destiny-title,
+        .tablet.media .destiny-title,
+        .tablet.baja .destiny-title {
+            color: #f4e4c1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .greek-letter {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 36px;
+            color: #d4af37;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .tablet-content {
+            color: #3d2817;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .tablet.alta .tablet-content,
+        .tablet.media .tablet-content,
+        .tablet.baja .tablet-content {
+            color: #f4e4c1;
+        }
+
+        .tablet-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(92, 64, 51, 0.3);
+            font-size: 14px;
+            color: #5c4033;
+        }
+
+        .tablet.alta .tablet-footer,
+        .tablet.media .tablet-footer,
+        .tablet.baja .tablet-footer {
+            color: #d4af37;
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .tablet-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn-greek {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            text-decoration: none;
+            border: 2px solid;
+            border-radius: 5px;
+            font-family: 'Caesar Dressing', cursive;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-greek:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-edit {
+            color: #d4af37;
+            border-color: #d4af37;
+        }
+
+        .btn-edit::before {
+            content: '✎ ';
+        }
+
+        .btn-edit:hover {
+            background: #d4af37;
+            color: #1a1a2e;
+        }
+
+        .btn-delete {
+            color: #8b0000;
+            border-color: #8b0000;
+        }
+
+        .btn-delete::before {
+            content: '✦ ';
+        }
+
+        .btn-delete:hover {
+            background: #8b0000;
+            color: #f4e4c1;
+        }
+
+        /* Estado vacío épico */
+        .empty-olympus {
+            text-align: center;
+            padding: 100px 20px;
+            background: rgba(0, 20, 40, 0.6);
+            border: 3px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            margin-top: 40px;
+        }
+
+        .empty-icon {
+            font-size: 120px;
+            margin-bottom: 30px;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.5));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .empty-olympus h2 {
+            font-family: 'Caesar Dressing', cursive;
+            font-size: 42px;
+            color: #d4af37;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .empty-olympus p {
+            font-size: 20px;
+            color: #b8a88a;
+            font-style: italic;
+            letter-spacing: 2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 50px; letter-spacing: 8px; }
+            .greek-name { font-size: 18px; }
+            .forge-btn { font-size: 18px; padding: 20px 40px; }
+            .destinies-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="olympus-bg"></div>
+    <div class="clouds"></div>
+    <div class="lightning"></div>
+    
+    <div class="container">
+        <header class="header">
+            <div class="symbol-container">
+                <span class="symbol">⏳</span>
+            </div>
+            <h1>CRONOX</h1>
+            <div class="greek-name">ΚΡΟΝΟΣ - SEÑOR DEL TIEMPO</div>
+            <p class="spartan-quote">
+                "El tiempo no espera a ningún mortal, pero los dioses lo dominan"
+            </p>
+        </header>
+        
+        <div class="forge-btn-container">
+            <a href="{% url 'crear' %}" class="forge-btn">Forjar Nuevo Destino</a>
+        </div>
+        
+        <div class="greek-line">
+            <span>❖ ❖ ❖</span>
+        </div>
+        
+        {% if recordatorios %}
+        <div class="destinies-grid">
+            {% for rec in recordatorios %}
+            <article class="tablet {{ rec.prioridad|lower }}">
+                <div class="tablet-header">
+                    <h3 class="destiny-title">{{ rec.titulo }}</h3>
+                    <span class="greek-letter">
+                        {% if rec.prioridad == "Alta" %}Ω{% endif %}
+                        {% if rec.prioridad == "Media" %}Ψ{% endif %}
+                        {% if rec.prioridad == "Baja" %}Δ{% endif %}
+                    </span>
+                </div>
+                
+                <p class="tablet-content">"{{ rec.descripcion }}"</p>
+                
+                <div class="tablet-footer">
+                    <span>⏳ {{ rec.fecha|date:"d/m/Y H:i" }}</span>
+                    <span>{{ rec.prioridad }}</span>
+                </div>
+                
+                <div class="tablet-actions">
+                    <a href="{% url 'editar' rec.id %}" class="btn-greek btn-edit">Alterar</a>
+                    <a href="{% url 'eliminar' rec.id %}" class="btn-greek btn-delete">Destruir</a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-olympus">
+            <div class="empty-icon">⏳</div>
+            <h2>El Olimpo Aguarda</h2>
+            <p>"Aún no has forjado ningún destino. Crea tu primer momento en el tiempo."</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

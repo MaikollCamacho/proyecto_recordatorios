@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRONOX | Destruir del Tiempo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Caesar+Dressing&family=GFS+Neohellenic:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'GFS Neohellenic', serif;
+            min-height: 100vh;
+            color: #f4e4c1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .tartarus-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            z-index: -2;
+        }
+
+        .tartarus-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(60, 0, 0, 0.7);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: 
+                linear-gradient(135deg, rgba(60, 0, 0, 0.95) 0%, rgba(100, 0, 0, 0.95) 100%);
+            border: 5px solid #8b0000;
+            border-radius: 15px;
+            padding: 50px;
+            position: relative;
+            box-shadow: 
+                0 50px 100px rgba(0, 0, 0, 0.9),
+                inset 0 0 150px rgba(0, 0, 0, 0.5),
+                0 0 50px rgba(139, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 3px solid rgba(139, 0, 0, 0.6);
+            border-radius: 10px;
+            pointer-events: none;
+        }
+
+        .warning-symbol {
+            font-size: 100px;
+            margin-bottom: 30px;
+            animation: pulse 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(255, 0, 0, 0.8));
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        h1 {
+            font-family: 'Caesar Dressing', cursive;
+            font-size: 48px;
+            color: #ff4444;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+        }
+
+        .warning-text {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 18px;
+            color: #ff8888;
+            font-style: italic;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .destiny-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid #8b0000;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .destiny-title {
+            font-family: 'Caesar Dressing', cursive;
+            font-size: 28px;
+            color: #f4e4c1;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .destiny-content {
+            color: #ffaaaa;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .destiny-meta {
+            color: #ff6666;
+            font-size: 14px;
+            letter-spacing: 2px;
+            border-top: 1px solid rgba(139, 0, 0, 0.5);
+            padding-top: 15px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 18px 40px;
+            border: 3px solid;
+            border-radius: 8px;
+            font-family: 'Caesar Dressing', cursive;
+            font-size: 18px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-destroy {
+            background: linear-gradient(135deg, #8b0000 0%, #b22222 50%, #8b0000 100%);
+            color: #f4e4c1;
+            border-color: #ff4444;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-destroy::before {
+            content: '✦ ';
+        }
+
+        .btn-destroy:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139, 0, 0, 0.6), 0 0 50px rgba(255, 0, 0, 0.4);
+            background: linear-gradient(135deg, #b22222 0%, #dc143c 50%, #b22222 100%);
+        }
+
+        .btn-spare {
+            background: transparent;
+            color: #64b5f6;
+            border-color: #64b5f6;
+        }
+
+        .btn-spare:hover {
+            background: rgba(100, 181, 246, 0.2);
+            color: #fff;
+            box-shadow: 0 0 30px rgba(100, 181, 246, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="tartarus-bg"></div>
+    
+    <div class="container">
+        <div class="warning-symbol">🔥</div>
+        <h1>Destruir del Tiempo</h1>
+        <p class="warning-text">
+            "Esta acción es permanente como la muerte.<br>
+            Ni siquiera los dioses pueden recuperar lo destruido."
+        </p>
+        
+        <div class="destiny-card">
+            <h3 class="destiny-title">"{{ recordatorio.titulo }}"</h3>
+            <p class="destiny-content">"{{ recordatorio.descripcion }}"</p>
+            <div class="destiny-meta">
+                ⏳ {{ recordatorio.fecha|date:"d/m/Y H:i" }} | 
+                🔥 {{ recordatorio.prioridad }}
+            </div>
+        </div>
+        
+        <form method="POST" style="display: inline;">
+            {% csrf_token %}
+            <div class="buttons">
+                <button type="submit" class="btn btn-destroy">Destruir Permanentemente</button>
+                <a href="{% url 'inicio' %}" class="btn btn-spare">Perdonar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRONOX | Alterar Destino</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Caesar+Dressing&family=GFS+Neohellenic:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'GFS Neohellenic', serif;
+            min-height: 100vh;
+            color: #f4e4c1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .olympus-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1570482597285-d2c0f9c223f7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            z-index: -2;
+        }
+
+        .olympus-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(184, 134, 11, 0.2);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: 
+                linear-gradient(135deg, rgba(184, 134, 11, 0.95) 0%, rgba(218, 165, 32, 0.95) 100%);
+            border: 5px solid #8b6914;
+            border-radius: 15px;
+            padding: 50px;
+            position: relative;
+            box-shadow: 
+                0 50px 100px rgba(0, 0, 0, 0.8),
+                inset 0 0 150px rgba(0, 0, 0, 0.2);
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 3px solid rgba(139, 105, 20, 0.6);
+            border-radius: 10px;
+            pointer-events: none;
+        }
+
+        .container::after {
+            content: '⚡ ⚡ ⚡';
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #8b6914;
+            font-size: 20px;
+            letter-spacing: 10px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+
+        .symbol {
+            font-size: 60px;
+            display: block;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(139, 0, 0, 0.6));
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        h1 {
+            font-family: 'Caesar Dressing', cursive;
+            font-size: 42px;
+            color: #4a3c1a;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 16px;
+            color: #6b5320;
+            font-style: italic;
+            letter-spacing: 3px;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            font-family: 'Caesar Dressing', cursive;
+            font-size: 18px;
+            color: #4a3c1a;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(244, 228, 193, 0.95);
+            border: 3px solid #8b6914;
+            border-radius: 8px;
+            color: #4a3c1a;
+            font-family: 'GFS Neohellenic', serif;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%238b6914' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            padding-right: 50px;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, #8b0000 0%, #b22222 50%, #8b0000 100%);
+            color: #f4e4c1;
+            border: 3px solid #d4af37;
+            border-radius: 8px;
+            font-family: 'Caesar Dressing', cursive;
+            font-size: 24px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-submit::before {
+            content: '⚡ ';
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(139, 0, 0, 0.4);
+        }
+
+        .btn-back {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: #6b5320;
+            text-decoration: none;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 14px;
+            letter-spacing: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back::before {
+            content: '← ';
+        }
+
+        .btn-back:hover {
+            color: #4a3c1a;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="olympus-bg"></div>
+    
+    <div class="container">
+        <div class="header">
+            <span class="symbol">⚡</span>
+            <h1>Alterar Destino</h1>
+            <p class="subtitle">"Incluso los dioses pueden cambiar su voluntad"</p>
+        </div>
+        
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label>Nombre del Destino</label>
+                <input type="text" name="titulo" value="{{ recordatorio.titulo }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Profecía</label>
+                <textarea name="descripcion" rows="4" required>{{ recordatorio.descripcion }}</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Momento del Oráculo</label>
+                <input type="datetime-local" name="fecha" 
+                       value="{{ recordatorio.fecha|date:'Y-m-d\\TH:i' }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Nivel de los Dioses</label>
+                <select name="prioridad" required>
+                    <option value="Alta" {% if recordatorio.prioridad == 'Alta' %}selected{% endif %}>🔴 Ira de Zeus - Crítico</option>
+                    <option value="Media" {% if recordatorio.prioridad == 'Media' %}selected{% endif %}>🟠 Voluntad de Atenea - Importante</option>
+                    <option value="Baja" {% if recordatorio.prioridad == 'Baja' %}selected{% endif %}>🟢 Favor de Hermes - Menor</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn-submit">Reescribir el Tiempo</button>
+            <a href="{% url 'inicio' %}" class="btn-back">Retirarse al Olimpo</a>
+        </form>
+    </div>
+</body>
+</html>
