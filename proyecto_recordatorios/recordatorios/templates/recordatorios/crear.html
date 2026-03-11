@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRONOX | Forjar Destino</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Caesar+Dressing&family=GFS+Neohellenic:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'GFS Neohellenic', serif;
+            min-height: 100vh;
+            color: #f4e4c1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .olympus-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1570482597285-d2c0f9c223f7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            z-index: -2;
+        }
+
+        .olympus-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 20, 40, 0.7);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: linear-gradient(135deg, rgba(139, 119, 101, 0.95) 0%, rgba(160, 140, 120, 0.95) 100%);
+            border: 5px solid #5c4033;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.8);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .symbol {
+            font-size: 60px;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: hammer 2s infinite;
+        }
+
+        @keyframes hammer {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        h1 {
+            font-family: 'Caesar Dressing', cursive;
+            font-size: 36px;
+            color: #2c1810;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-family: 'Cinzel Decorative', serif;
+            color: #5c4033;
+            font-style: italic;
+        }
+
+        /* NUEVO: Mensajes de error/éxito */
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .message-error {
+            background: rgba(139, 0, 0, 0.3);
+            border: 2px solid #8b0000;
+            color: #ff8888;
+        }
+
+        .message-success {
+            background: rgba(46, 92, 138, 0.3);
+            border: 2px solid #2e5c8a;
+            color: #64b5f6;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-family: 'Caesar Dressing', cursive;
+            font-size: 16px;
+            color: #2c1810;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 15px;
+            background: rgba(244, 228, 193, 0.9);
+            border: 3px solid #5c4033;
+            border-radius: 8px;
+            color: #2c1810;
+            font-family: 'GFS Neohellenic', serif;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            transform: translateY(-2px);
+        }
+
+        /* NUEVO: Indicador de validación */
+        .validation-hint {
+            font-size: 12px;
+            color: #8b6914;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%235c4033' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            padding-right: 50px;
+        }
+
+        /* NUEVO: Preview de métricas calculadas */
+        .metrics-preview {
+            background: rgba(0, 0, 0, 0.2);
+            border: 2px dashed rgba(212, 175, 55, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            display: none;
+        }
+
+        .metrics-preview.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .metric-value {
+            font-family: 'Caesar Dressing', cursive;
+            font-size: 24px;
+            color: #d4af37;
+            margin: 10px 0;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #2e5c8a 0%, #3d7ab5 50%, #2e5c8a 100%);
+            color: #d4af37;
+            border: 3px solid #d4af37;
+            border-radius: 8px;
+            font-family: 'Caesar Dressing', cursive;
+            font-size: 20px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #5c4033;
+            text-decoration: none;
+            font-family: 'Cinzel Decorative', serif;
+            transition: all 0.3s;
+        }
+
+        .btn-back:hover {
+            color: #2c1810;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 25px; }
+            h1 { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="olympus-bg"></div>
+    
+    <div class="container">
+        <div class="header">
+            <span class="symbol">⚔</span>
+            <h1>Forjar Destino</h1>
+            <p class="subtitle">"Inscribe tu voluntad en las tablillas del tiempo"</p>
+        </div>
+
+        <!-- NUEVO: Mensajes de error/éxito del servidor -->
+        {% if error %}
+        <div class="message message-error">
+            ⚠️ {{ error }}
+        </div>
+        {% endif %}
+
+        {% if exito %}
+        <div class="message message-success">
+            ✓ {{ exito }}
+        </div>
+        {% endif %}
+        
+        <form method="POST" id="forgeForm">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label>Nombre del Destino / Destiny Name</label>
+                <input type="text" name="titulo" id="titulo" 
+                       value="{{ datos.titulo|default:'' }}" 
+                       placeholder="Ej: Conquista de Esparta" required>
+                <div class="validation-hint">Mínimo 3 caracteres / Minimum 3 characters</div>
+            </div>
+            
+            <div class="form-group">
+                <label>Profecía / Prophecy</label>
+                <textarea name="descripcion" id="descripcion" 
+                          placeholder="Escribe la profecía que se cumplirá..." required>{{ datos.descripcion|default:'' }}</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Momento del Oráculo / Oracle Moment</label>
+                <input type="datetime-local" name="fecha" id="fecha" 
+                       value="{{ datos.fecha|default:'' }}" required>
+                <div class="validation-hint">Debe ser fecha futura / Must be future date</div>
+            </div>
+            
+            <div class="form-group">
+                <label>Nivel de los Dioses / God Level</label>
+                <select name="prioridad" id="prioridad" required>
+                    <option value="Alta" {% if datos.prioridad == 'Alta' %}selected{% endif %}>
+                        🔴 Ira de Zeus - Crítico / Zeus Wrath - Critical
+                    </option>
+                    <option value="Media" {% if datos.prioridad == 'Media' or not datos.prioridad %}selected{% endif %}>
+                        🟠 Voluntad de Atenea - Importante / Athena Will - Important
+                    </option>
+                    <option value="Baja" {% if datos.prioridad == 'Baja' %}selected{% endif %}>
+                        🟢 Favor de Hermes - Menor / Hermes Favor - Minor
+                    </option>
+                </select>
+            </div>
+
+            <!-- NUEVO: Preview de métricas calculadas en tiempo real -->
+            <div class="metrics-preview" id="metricsPreview">
+                <div style="font-family: 'Caesar Dressing', cursive; color: #d4af37; margin-bottom: 15px;">
+                    ⚡ Visión del Oráculo / Oracle Vision ⚡
+                </div>
+                <div class="metric-value" id="timePreview">--</div>
+                <div style="font-size: 12px; color: #8b6914;">Tiempo restante estimado / Estimated time remaining</div>
+                <div class="metric-value" id="urgencyPreview" style="font-size: 20px; margin-top: 15px;">--</div>
+                <div style="font-size: 12px; color: #8b6914;">Índice de urgencia / Urgency index</div>
+            </div>
+            
+            <button type="submit" class="btn-submit">⚔ Sellar en el Tiempo</button>
+            <a href="{% url 'inicio' %}" class="btn-back">← Retirarse al Olimpo / Return to Olympus</a>
+        </form>
+    </div>
+
+    <!-- NUEVO: JavaScript para cálculo en tiempo real -->
+    <script>
+        document.getElementById('fecha').addEventListener('change', updatePreview);
+        document.getElementById('prioridad').addEventListener('change', updatePreview);
+
+        function updatePreview() {
+            const fechaInput = document.getElementById('fecha').value;
+            const prioridad = document.getElementById('prioridad').value;
+            
+            if (!fechaInput) return;
+            
+            const fechaObjetivo = new Date(fechaInput);
+            const ahora = new Date();
+            const diff = fechaObjetivo - ahora;
+            
+            const preview = document.getElementById('metricsPreview');
+            const timeDisplay = document.getElementById('timePreview');
+            const urgencyDisplay = document.getElementById('urgencyPreview');
+            
+            if (diff > 0) {
+                preview.classList.add('active');
+                
+                const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const horas = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutos = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                
+                timeDisplay.textContent = `${dias}d ${horas}h ${minutos}m`;
+                
+                // Cálculo de urgencia (simulado)
+                const pesos = {'Alta': 3, 'Media': 2, 'Baja': 1};
+                let urgencia = 100 * Math.exp(-dias / 7) * pesos[prioridad];
+                urgencia = Math.min(Math.round(urgencia), 100);
+                
+                urgencyDisplay.textContent = urgencia + '%';
+                urgencyDisplay.style.color = urgencia >= 70 ? '#ff4444' : urgencia >= 40 ? '#ffd700' : '#64b5f6';
+            } else {
+                timeDisplay.textContent = '⚠️ Fecha en el pasado';
+                urgencyDisplay.textContent = '--';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRONOX | Destruir del Tiempo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Caesar+Dressing&family=GFS+Neohellenic:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'GFS Neohellenic', serif;
+            min-height: 100vh;
+            color: #f4e4c1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .tartarus-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            z-index: -2;
+            animation: bg-pulse 5s ease-in-out infinite;
+        }
+
+        @keyframes bg-pulse {
+            0%, 100% { filter: brightness(0.4); }
+            50% { filter: brightness(0.6); }
+        }
+
+        .tartarus-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(60, 0, 0, 0.8);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: linear-gradient(135deg, rgba(60, 0, 0, 0.98) 0%, rgba(100, 0, 0, 0.98) 100%);
+            border: 5px solid #8b0000;
+            border-radius: 15px;
+            padding: 50px;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.9), 0 0 80px rgba(139, 0, 0, 0.6);
+            text-align: center;
+        }
+
+        .warning-symbol {
+            font-size: 100px;
+            margin-bottom: 30px;
+            animation: fire-pulse 1.5s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(255, 0, 0, 0.8));
+        }
+
+        @keyframes fire-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        h1 {
+            font-family: 'Caesar Dressing', cursive;
+            font-size: 48px;
+            color: #ff4444;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+        }
+
+        .warning-text {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 18px;
+            color: #ff8888;
+            font-style: italic;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        /* NUEVO: Destino final con métricas */
+        .destiny-card {
+            background: rgba(0, 0, 0, 0.5);
+            border: 3px solid #8b0000;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: left;
+            position: relative;
+        }
+
+        .destiny-card::before {
+            content: 'DESTINO MARCADO / MARKED DESTINY';
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #8b0000;
+            color: #f4e4c1;
+            padding: 5px 15px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            border-radius: 4px;
+        }
+
+        .destiny-title {
+            font-family: 'Caesar Dressing', cursive;
+            font-size: 28px;
+            color: #ffaaaa;
+            margin-bottom: 15px;
+            margin-top: 10px;
+        }
+
+        .destiny-content {
+            color: #ffaaaa;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        /* NUEVO: Métricas finales */
+        .final-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(139, 0, 0, 0.5);
+        }
+
+        .metric-item {
+            text-align: center;
+        }
+
+        .metric-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ff6666;
+            margin-bottom: 5px;
+        }
+
+        .metric-value {
+            font-family: 'Caesar Dressing', cursive;
+            font-size: 24px;
+            color: #ff4444;
+        }
+
+        .metric-value.critical {
+            animation: blink-red 1.5s infinite;
+        }
+
+        @keyframes blink-red {
+            0%, 100% { color: #ff4444; text-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+            50% { color: #ff8888; text-shadow: 0 0 20px rgba(255, 0, 0, 0.8); }
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .message-error {
+            background: rgba(139, 0, 0, 0.3);
+            border: 2px solid #ff4444;
+            color: #ff4444;
+        }
+
+        /* NUEVO: Confirmación de seguridad */
+        .security-check {
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px dashed #ff4444;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .security-check label {
+            display: block;
+            margin-bottom: 10px;
+            color: #ff8888;
+            font-size: 14px;
+        }
+
+        .security-check input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #8b0000;
+            border-radius: 5px;
+            color: #f4e4c1;
+            font-family: 'Caesar Dressing', cursive;
+            font-size: 18px;
+            text-align: center;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .security-check input:focus {
+            outline: none;
+            border-color: #ff4444;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 18px 40px;
+            border: 3px solid;
+            border-radius: 8px;
+            font-family: 'Caesar Dressing', cursive;
+            font-size: 18px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-destroy {
+            background: linear-gradient(135deg, #8b0000 0%, #b22222 50%, #8b0000 100%);
+            color: #f4e4c1;
+            border-color: #ff4444;
+            animation: destroy-glow 2s infinite;
+        }
+
+        @keyframes destroy-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(139, 0, 0, 0.6); }
+            50% { box-shadow: 0 0 40px rgba(255, 0, 0, 0.8); }
+        }
+
+        .btn-destroy:hover {
+            transform: translateY(-3px) scale(1.05);
+            background: linear-gradient(135deg, #b22222 0%, #dc143c 50%, #b22222 100%);
+            box-shadow: 0 20px 60px rgba(139, 0, 0, 0.8);
+        }
+
+        .btn-spare {
+            background: transparent;
+            color: #64b5f6;
+            border-color: #64b5f6;
+        }
+
+        .btn-spare:hover {
+            background: rgba(100, 181, 246, 0.2);
+            color: #fff;
+            box-shadow: 0 0 30px rgba(100, 181, 246, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 30px 20px; }
+            h1 { font-size: 36px; }
+            .buttons { flex-direction: column; }
+            .final-metrics { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="tartarus-bg"></div>
+    
+    <div class="container">
+        <div class="warning-symbol">🔥</div>
+        <h1>Destruir del Tiempo</h1>
+        <p class="warning-text">
+            "Esta acción es permanente como la muerte.<br>
+            This action is permanent as death.<br>
+            Ni siquiera los dioses pueden recuperar lo destruido.<br>
+            Not even gods can recover what is destroyed."
+        </p>
+
+        {% if error %}
+        <div class="message message-error">
+            ⚠️ {{ error }}
+        </div>
+        {% endif %}
+        
+        <!-- NUEVO: Destino con métricas calculadas -->
+        <div class="destiny-card">
+            <h3 class="destiny-title">"{{ recordatorio.titulo }}"</h3>
+            <p class="destiny-content">"{{ recordatorio.descripcion }}"</p>
+            
+            <!-- NUEVO: Métricas finales del destino -->
+            {% if metricas_finales %}
+            <div class="final-metrics">
+                <div class="metric-item">
+                    <div class="metric-label">Tiempo Restante / Time Left</div>
+                    <div class="metric-value {% if metricas_finales.dias == 0 %}critical{% endif %}">
+                        {{ metricas_finales.tiempo_restante_str }}
+                    </div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-label">Urgencia / Urgency</div>
+                    <div class="metric-value {% if metricas_finales.urgencia >= 70 %}critical{% endif %}">
+                        {{ metricas_finales.urgencia }}%
+                    </div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-label">Fecha / Date</div>
+                    <div class="metric-value" style="font-size: 18px;">
+                        {{ recordatorio.fecha|date:"d/m/Y" }}
+                    </div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-label">Prioridad / Priority</div>
+                    <div class="metric-value" style="font-size: 18px;">
+                        {% if recordatorio.prioridad == "Alta" %}🔴{% endif %}
+                        {% if recordatorio.prioridad == "Media" %}🟠{% endif %}
+                        {% if recordatorio.prioridad == "Baja" %}🟢{% endif %}
+                        {{ recordatorio.prioridad }}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        
+        <form method="POST">
+            {% csrf_token %}
+            
+            <!-- NUEVO: Confirmación de seguridad -->
+            <div class="security-check">
+                <label for="confirmacion">
+                    Escriba DESTRUIR para confirmar / Type DESTRUIR to confirm:
+                </label>
+                <input type="text" name="confirmacion" id="confirmacion" 
+                       placeholder="DESTRUIR" required
+                       pattern="DESTRUIR" title="Debe escribir exactamente DESTRUIR">
+            </div>
+            
+            <div class="buttons">
+                <button type="submit" class="btn btn-destroy">✦ Destruir / Destroy</button>
+                <a href="{% url 'inicio' %}" class="btn btn-spare">✕ Perdonar / Spare</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
