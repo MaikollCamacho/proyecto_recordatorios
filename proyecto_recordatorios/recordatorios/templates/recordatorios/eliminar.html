@@ -31,12 +31,15 @@
             height: 100%;
             background: url('https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
             z-index: -2;
+<<<<<<< HEAD
             animation: bg-pulse 5s ease-in-out infinite;
         }
 
         @keyframes bg-pulse {
             0%, 100% { filter: brightness(0.4); }
             50% { filter: brightness(0.6); }
+=======
+>>>>>>> 8a43f58e1a5f1830e569e9e2839cc476a79d1c85
         }
 
         .tartarus-bg::before {
@@ -46,12 +49,17 @@
             left: 0;
             width: 100%;
             height: 100%;
+<<<<<<< HEAD
             background: rgba(60, 0, 0, 0.8);
+=======
+            background: rgba(60, 0, 0, 0.7);
+>>>>>>> 8a43f58e1a5f1830e569e9e2839cc476a79d1c85
         }
 
         .container {
             width: 100%;
             max-width: 600px;
+<<<<<<< HEAD
             background: linear-gradient(135deg, rgba(60, 0, 0, 0.98) 0%, rgba(100, 0, 0, 0.98) 100%);
             border: 5px solid #8b0000;
             border-radius: 15px;
@@ -70,6 +78,43 @@
         @keyframes fire-pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.2); }
+=======
+            background: 
+                linear-gradient(135deg, rgba(60, 0, 0, 0.95) 0%, rgba(100, 0, 0, 0.95) 100%);
+            border: 5px solid #8b0000;
+            border-radius: 15px;
+            padding: 50px;
+            position: relative;
+            box-shadow: 
+                0 50px 100px rgba(0, 0, 0, 0.9),
+                inset 0 0 150px rgba(0, 0, 0, 0.5),
+                0 0 50px rgba(139, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 3px solid rgba(139, 0, 0, 0.6);
+            border-radius: 10px;
+            pointer-events: none;
+        }
+
+        .warning-symbol {
+            font-size: 100px;
+            margin-bottom: 30px;
+            animation: pulse 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(255, 0, 0, 0.8));
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+>>>>>>> 8a43f58e1a5f1830e569e9e2839cc476a79d1c85
         }
 
         h1 {
@@ -87,10 +132,15 @@
             font-size: 18px;
             color: #ff8888;
             font-style: italic;
+<<<<<<< HEAD
+=======
+            letter-spacing: 2px;
+>>>>>>> 8a43f58e1a5f1830e569e9e2839cc476a79d1c85
             margin-bottom: 40px;
             line-height: 1.6;
         }
 
+<<<<<<< HEAD
         /* NUEVO: Destino final con métricas */
         .destiny-card {
             background: rgba(0, 0, 0, 0.5);
@@ -113,20 +163,36 @@
             font-size: 10px;
             letter-spacing: 2px;
             border-radius: 4px;
+=======
+        .destiny-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid #8b0000;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: left;
+>>>>>>> 8a43f58e1a5f1830e569e9e2839cc476a79d1c85
         }
 
         .destiny-title {
             font-family: 'Caesar Dressing', cursive;
             font-size: 28px;
+<<<<<<< HEAD
             color: #ffaaaa;
             margin-bottom: 15px;
             margin-top: 10px;
+=======
+            color: #f4e4c1;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+>>>>>>> 8a43f58e1a5f1830e569e9e2839cc476a79d1c85
         }
 
         .destiny-content {
             color: #ffaaaa;
             font-size: 16px;
             line-height: 1.6;
+<<<<<<< HEAD
             margin-bottom: 20px;
             font-style: italic;
         }
@@ -216,6 +282,18 @@
             outline: none;
             border-color: #ff4444;
             box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+=======
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .destiny-meta {
+            color: #ff6666;
+            font-size: 14px;
+            letter-spacing: 2px;
+            border-top: 1px solid rgba(139, 0, 0, 0.5);
+            padding-top: 15px;
+>>>>>>> 8a43f58e1a5f1830e569e9e2839cc476a79d1c85
         }
 
         .buttons {
@@ -233,7 +311,11 @@
             letter-spacing: 4px;
             text-transform: uppercase;
             cursor: pointer;
+<<<<<<< HEAD
             transition: all 0.3s;
+=======
+            transition: all 0.3s ease;
+>>>>>>> 8a43f58e1a5f1830e569e9e2839cc476a79d1c85
             text-decoration: none;
             display: inline-block;
         }
@@ -242,6 +324,7 @@
             background: linear-gradient(135deg, #8b0000 0%, #b22222 50%, #8b0000 100%);
             color: #f4e4c1;
             border-color: #ff4444;
+<<<<<<< HEAD
             animation: destroy-glow 2s infinite;
         }
 
@@ -254,6 +337,19 @@
             transform: translateY(-3px) scale(1.05);
             background: linear-gradient(135deg, #b22222 0%, #dc143c 50%, #b22222 100%);
             box-shadow: 0 20px 60px rgba(139, 0, 0, 0.8);
+=======
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-destroy::before {
+            content: '✦ ';
+        }
+
+        .btn-destroy:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139, 0, 0, 0.6), 0 0 50px rgba(255, 0, 0, 0.4);
+            background: linear-gradient(135deg, #b22222 0%, #dc143c 50%, #b22222 100%);
+>>>>>>> 8a43f58e1a5f1830e569e9e2839cc476a79d1c85
         }
 
         .btn-spare {
@@ -267,6 +363,7 @@
             color: #fff;
             box-shadow: 0 0 30px rgba(100, 181, 246, 0.4);
         }
+<<<<<<< HEAD
 
         @media (max-width: 768px) {
             .container { padding: 30px 20px; }
@@ -274,6 +371,8 @@
             .buttons { flex-direction: column; }
             .final-metrics { grid-template-columns: 1fr; }
         }
+=======
+>>>>>>> 8a43f58e1a5f1830e569e9e2839cc476a79d1c85
     </style>
 </head>
 <body>
@@ -284,6 +383,7 @@
         <h1>Destruir del Tiempo</h1>
         <p class="warning-text">
             "Esta acción es permanente como la muerte.<br>
+<<<<<<< HEAD
             This action is permanent as death.<br>
             Ni siquiera los dioses pueden recuperar lo destruido.<br>
             Not even gods can recover what is destroyed."
@@ -350,6 +450,25 @@
             <div class="buttons">
                 <button type="submit" class="btn btn-destroy">✦ Destruir / Destroy</button>
                 <a href="{% url 'inicio' %}" class="btn btn-spare">✕ Perdonar / Spare</a>
+=======
+            Ni siquiera los dioses pueden recuperar lo destruido."
+        </p>
+        
+        <div class="destiny-card">
+            <h3 class="destiny-title">"{{ recordatorio.titulo }}"</h3>
+            <p class="destiny-content">"{{ recordatorio.descripcion }}"</p>
+            <div class="destiny-meta">
+                ⏳ {{ recordatorio.fecha|date:"d/m/Y H:i" }} | 
+                🔥 {{ recordatorio.prioridad }}
+            </div>
+        </div>
+        
+        <form method="POST" style="display: inline;">
+            {% csrf_token %}
+            <div class="buttons">
+                <button type="submit" class="btn btn-destroy">Destruir Permanentemente</button>
+                <a href="{% url 'inicio' %}" class="btn btn-spare">Perdonar</a>
+>>>>>>> 8a43f58e1a5f1830e569e9e2839cc476a79d1c85
             </div>
         </form>
     </div>
